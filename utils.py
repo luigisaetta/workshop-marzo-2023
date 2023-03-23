@@ -1,7 +1,9 @@
 import pandas as pd
 import numpy as np
 from sklearn.metrics import classification_report
-from sklearn.metrics import get_scorer, make_scorer, f1_score, roc_auc_score, accuracy_score, confusion_matrix, ConfusionMatrixDisplay
+from sklearn.metrics import (get_scorer, make_scorer, f1_score, roc_auc_score, accuracy_score,
+                             recall_score,
+                             confusion_matrix, ConfusionMatrixDisplay)
 
 import matplotlib.pyplot as plt
 
@@ -57,11 +59,13 @@ def evaluate_metrics(model, X, y):
 
     roc_auc = round(roc_auc_score(y, test_probas[:,1]), 4)
     acc = round(accuracy_score(y, test_pred), 4)
+    recall = round(recall_score(y, test_pred, pos_label="Yes"), 4)
 
     # this is the Object that will be saved in the Model Catalog
     metrics = {
         "accuracy" : acc,
-        "roc_auc" : roc_auc
+        "roc_auc" : roc_auc,
+        "recall" : recall
     }
 
     print(str(metrics))
